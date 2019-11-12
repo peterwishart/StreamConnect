@@ -48,7 +48,20 @@ NB the tool echoes dots to the console as data is forwarded.
 # Why?
 
 I use it for redirecting / monitoring serial port usage from VMs when talking to fixed-function RS232 devices, and for emulating IPToSerial devices.
-
 # Running with virtual serial ports
 
 The app can also be used to map VMWare virtual serial ports to local COM ports, see Program.cs for details.
+
+# Mapping a COM port within a hyper V Gen 2 VM to a host com port
+ * Shut down the VM
+ * Disable UEFI secure boot in the vm
+   - `Set-VMFirmware -VMName my_gen2_vm -EnableSecureBoot Off`
+ * On the host, associate a pipe with the VM COM port  
+   - `Set-VMComPort -VMName my_gen2_vm -Number 1 -Path \\.\pipe\com1`
+ * Run a named pipe server on the host
+   - `.\bin\debug\StreamConnect.exe \\.\pipe\com1 COM1`
+ * Start the VM
+ * Named pipe server should show:
+   - `Connection from NamedPipe \\.\pipe\com1`
+   - `Connection made`
+
