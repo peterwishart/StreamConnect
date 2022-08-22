@@ -76,7 +76,7 @@
                 }
             }
 
-            public override string  ToString()
+            public override string ToString()
             {
                 return string.Format(
                     "{0} {1}{2}",
@@ -117,7 +117,7 @@
 
             if (clientBinding.BindingType == BindingType.Serial)
             {
-                using (var serialPortClient = new SerialPort(string.Format("COM{0}", clientBinding.Port), 115200, Parity.None, 8, StopBits.One))
+                using (var serialPortClient = new SerialPort(string.Format("COM{0}", clientBinding.Port), 57600, Parity.None, 8, StopBits.One))
                 {
                     try
                     {
@@ -248,9 +248,12 @@
                         try
                         {
                             serialPortServer = new SerialPort(
-                                String.Format("COM{0}", sourceBinding.Port), 115200, Parity.None, 8, StopBits.One);
+                                String.Format("COM{0}", sourceBinding.Port), SerialSettings.BaudRate, SerialSettings.Parity, SerialSettings.DataBits, SerialSettings.StopBits);
                             serialPortServer.Open();
-                            serialPortServer.DtrEnable = true;
+                            if (SerialSettings.DtrEnable)
+                            {
+                                serialPortServer.DtrEnable = true;
+                            }
                         }
                         catch (UnauthorizedAccessException)
                         {

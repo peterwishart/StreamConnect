@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>StreamConnect</RootNamespace>
     <AssemblyName>StreamConnect</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -51,6 +51,7 @@
     <Compile Include="PluggableStream.cs" />
     <Compile Include="PluggableSocket.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="SerialSettings.cs" />
     <Compile Include="StreamCrossover.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
