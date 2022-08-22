@@ -9,5 +9,10 @@ namespace StreamConnect
         public static Parity Parity = Parity.None;
         public static int DataBits = 8;
         public static StopBits StopBits = StopBits.One;
+
+        public static string AsString()
+        {
+            return $"{BaudRate}/{Parity}:{DataBits}:{StopBits}{(DtrEnable?" [DTR enabled]":"")}";
+        }
     }
 }

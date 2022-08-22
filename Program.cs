@@ -36,7 +36,7 @@ namespace StreamConnect
                 Console.WriteLine(@"Source/dest mappings allow formats:");
                 Console.WriteLine("  <ip or host>:<port>");
                 Console.WriteLine("  <Named pipe>");
-                Console.WriteLine("  COM<n> (com port, fixed baud 115k2, RTS enabled)");
+                Console.WriteLine($"  COM<n> (com port, {SerialSettings.AsString()})");
             }
         }
     }

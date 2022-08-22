@@ -117,7 +117,7 @@
 
             if (clientBinding.BindingType == BindingType.Serial)
             {
-                using (var serialPortClient = new SerialPort(string.Format("COM{0}", clientBinding.Port), 57600, Parity.None, 8, StopBits.One))
+                using (var serialPortClient = new SerialPort(string.Format("COM{0}", clientBinding.Port), SerialSettings.BaudRate, SerialSettings.Parity, SerialSettings.DataBits, SerialSettings.StopBits))
                 {
                     try
                     {
@@ -249,11 +249,11 @@
                         {
                             serialPortServer = new SerialPort(
                                 String.Format("COM{0}", sourceBinding.Port), SerialSettings.BaudRate, SerialSettings.Parity, SerialSettings.DataBits, SerialSettings.StopBits);
-                            serialPortServer.Open();
                             if (SerialSettings.DtrEnable)
                             {
                                 serialPortServer.DtrEnable = true;
                             }
+                            serialPortServer.Open();
                         }
                         catch (UnauthorizedAccessException)
                         {
@@ -264,7 +264,7 @@
 
                         if (serialPortServer != null)
                         {                                             
-                            Console.WriteLine("Connection from " + sourceBinding);
+                            Console.WriteLine("Connection from " + sourceBinding + "(" + SerialSettings.AsString() + ")");
                             var serverStream = new PluggableStream(serialPortServer.BaseStream);
                             await ClientConnectAsync(cancelToken, serverStream, destBinding);                        
                             serialPortServer.Close();
