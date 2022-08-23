@@ -5,15 +5,15 @@ RS232 functionality is a bit limited - no error detection or flow control.
 
 # Building
 
-* Install Visual Studio code
-* Install .Net SDK (https://dotnet.microsoft.com/learn/dotnet/hello-world-tutorial#install)
-* Install the .Net 4.5 runtime (e.g. if building on Windows 7 or older)
+* Download or clone the source
+* Install .Net SDK (https://dotnet.microsoft.com/en-us/learn/dotnet/hello-world-tutorial/install)
+* Install the .Net 4.6.2 Developer pack (https://dotnet.microsoft.com/en-us/download/dotnet-framework)
 * Open the project folder in VS code
 * In VS code, start a terminal and run "dotnet build" to build the app
 
 The build should output:
 
-```PS c:\git\IpToSerial\StreamConnect\ip_to_serial_emulator\StreamConnect> dotnet build
+```PS c:\git\StreamConnect> dotnet build
 Microsoft (R) Build Engine version 15.9.20+g88f5fadfbe for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
@@ -29,7 +29,7 @@ Time Elapsed 00:00:02.02
 
 # Running the app
  * Run the app with a pair of stream endpoint specifications: `bin\debug\StreamConnect.exe <SourceStream> <DestinationStream>`
- * RS232 comms uses 115200 baud, with DTR raised while a client is connected and is specified in the form "COMxx" where x is the COM port
+ * For RS232 comms, the stream endpoint is specified in the form "COMxx" where x is the COM port. Serial settings are set in code 'SerialSettings.cs' (default uses 19200 baud, with DTR raised while a client is connected)
  * Named pipe comms is specified as `\\.\pipe\PipeNameHere`
  * A socket endpoint is specified as `IP:port` where IP is a dotted IPv4 address
 
@@ -43,7 +43,8 @@ Connection made
 ............................Input stream disconnected
 ```
 
-NB the tool echoes dots to the console as data is forwarded.
+By default the tool echoes dots to the console as data is forwarded. 
+You can enable a hex dump of the data transferred by building with `dotnet build /p:DefineConstants=OperationDebugs`.
 
 # Why?
 
